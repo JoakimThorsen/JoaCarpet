@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.joacarpet.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "blockTickling.ItemMixin",
+    "blockTickling.PlayerMixin",
+    "insaneBehaviors.BlockMixin",
+    "insaneBehaviors.ContainersMixin",
+    "insaneBehaviors.DefaultDispenseItemBehaviorMixin",
+    "insaneBehaviors.PistonBaseBlockMixin",
+    "insaneBehaviors.ProjectileMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
