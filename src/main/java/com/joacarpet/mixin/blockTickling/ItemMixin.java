@@ -57,11 +57,11 @@ class ItemMixin {
         }
         if (JoaCarpetSettings.blockTickling.equals("shapeupdates") || JoaCarpetSettings.blockTickling.equals("both")) {
             //#if MC >= 11900
-//$$             level.neighborShapeChanged(useOnContext.getClickedFace(), neighborBlockState, clickedPos, neighborPos, 2, 512);
+            level.neighborShapeChanged(useOnContext.getClickedFace(), neighborBlockState, clickedPos, neighborPos, 2, 512);
             //#else
-            BlockState clickedBlockState = level.getBlockState(clickedPos);
-            BlockState newState = clickedBlockState.updateShape(useOnContext.getClickedFace(), neighborBlockState, level, clickedPos, neighborPos);
-            Block.updateOrDestroy(clickedBlockState, newState, level, clickedPos, 2, 512);
+//$$             BlockState clickedBlockState = level.getBlockState(clickedPos);
+//$$             BlockState newState = clickedBlockState.updateShape(useOnContext.getClickedFace(), neighborBlockState, level, clickedPos, neighborPos);
+//$$             Block.updateOrDestroy(clickedBlockState, newState, level, clickedPos, 2, 512);
             //#endif
         }
         cir.setReturnValue(InteractionResult.SUCCESS);

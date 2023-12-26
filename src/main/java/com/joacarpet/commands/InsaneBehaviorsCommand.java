@@ -29,9 +29,9 @@ import net.minecraft.commands.CommandSourceStack;
 import java.util.Objects;
 
 //#if MC >= 11900
-//$$ import carpet.utils.CommandHelper;
+import carpet.utils.CommandHelper;
 //#else
-import carpet.settings.SettingsManager;
+//$$ import carpet.settings.SettingsManager;
 //#endif
 
 import static net.minecraft.commands.Commands.argument;
@@ -43,9 +43,9 @@ public class InsaneBehaviorsCommand {
                 literal("insanebehaviors")
                         .requires(c -> !Objects.equals(JoaCarpetSettings.insaneBehaviors, "normal") &&
                                 //#if MC >= 11900
-//$$                                 CommandHelper.canUseCommand(c, JoaCarpetSettings.commandInsaneBehaviors))
+                                CommandHelper.canUseCommand(c, JoaCarpetSettings.commandInsaneBehaviors))
                                 //#else
-                                SettingsManager.canUseCommand(c, JoaCarpetSettings.commandInsaneBehaviors))
+//$$                                 SettingsManager.canUseCommand(c, JoaCarpetSettings.commandInsaneBehaviors))
                                 //#endif
 
 

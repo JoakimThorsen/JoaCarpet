@@ -4,6 +4,8 @@
 
 A small [carpet](https://github.com/gnembon/fabric-carpet) extension mod.
 
+You can also view the project on [Modrinth](https://modrinth.com/mod/joacarpet)
+
 ## Carpet Mod Settings
 ### insaneBehaviors
 Makes the random velocities of droppers and projectiles (as well as both the position and velocity of blocks broken by pistons) systematically iterate through the most extreme values possible, and then repeatedly iterate through all the halfway points in between, in a sense attempting every point in a 3d/5d "grid" that slowly increases in resolution.

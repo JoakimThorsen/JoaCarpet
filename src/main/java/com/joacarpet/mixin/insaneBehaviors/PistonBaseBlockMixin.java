@@ -60,9 +60,9 @@ public class PistonBaseBlockMixin {
                 }
             });
             //#if MC >= 11900
-//$$             blockState.spawnAfterBreak((ServerLevel)levelAccessor, blockPos, ItemStack.EMPTY, true);
+            blockState.spawnAfterBreak((ServerLevel)levelAccessor, blockPos, ItemStack.EMPTY, true);
             //#else
-            blockState.spawnAfterBreak((ServerLevel)levelAccessor, blockPos, ItemStack.EMPTY);
+//$$             blockState.spawnAfterBreak((ServerLevel)levelAccessor, blockPos, ItemStack.EMPTY);
             //#endif
         }
     }

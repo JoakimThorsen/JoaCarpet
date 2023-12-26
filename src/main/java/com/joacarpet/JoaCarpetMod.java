@@ -35,23 +35,23 @@ import java.util.Map;
 
 
 //#if MC >= 11900
-//$$ import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandBuildContext;
 //#endif
 //#if MC >= 11800
-//$$ import org.slf4j.Logger;
-//$$ import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //#else
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//$$ import org.apache.logging.log4j.LogManager;
+//$$ import org.apache.logging.log4j.Logger;
 //#endif
 
 
 public class JoaCarpetMod implements ModInitializer, CarpetExtension {
     public static final Logger LOGGER =
     //#if MC >= 11800
-//$$             LoggerFactory.getLogger("joacarpet");
+            LoggerFactory.getLogger("joacarpet");
     //#else
-    LogManager.getLogger("joacarpet");
+//$$     LogManager.getLogger("joacarpet");
     //#endif
 
 
@@ -65,7 +65,7 @@ public class JoaCarpetMod implements ModInitializer, CarpetExtension {
     @Override
     public void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher
         //#if MC >= 11900
-//$$         , final CommandBuildContext commandBuildContext
+        , final CommandBuildContext commandBuildContext
         //#endif
     ) {
         InsaneBehaviorsCommand.register(dispatcher);
@@ -89,13 +89,13 @@ public class JoaCarpetMod implements ModInitializer, CarpetExtension {
     public static void messagePlayerIfExists(CommandSourceStack c, String message) {
 
         //#if MC >= 11900
-//$$         if(c.getPlayer() != null) {
-//$$              Messenger.m(c.getPlayer(), message);
-//$$         }
-        //#else
-        if(c.getEntity() instanceof ServerPlayer) {
-            Messenger.m((Player) c.getEntity(), message);
+        if(c.getPlayer() != null) {
+             Messenger.m(c.getPlayer(), message);
         }
+        //#else
+//$$         if(c.getEntity() instanceof ServerPlayer) {
+//$$             Messenger.m((Player) c.getEntity(), message);
+//$$         }
         //#endif
     }
 }
