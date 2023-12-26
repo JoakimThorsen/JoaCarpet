@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.joacarpet.mixin",
+  "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
+  "mixins": [
+    "MinecraftServerMixin",
+
+    "blockTickling.ItemMixin",
+    "blockTickling.PlayerMixin",
+
+    "insaneBehaviors.BlockMixin",
+    "insaneBehaviors.ContainersMixin",
+    "insaneBehaviors.DefaultDispenseItemBehaviorMixin",
+    "insaneBehaviors.PistonBaseBlockMixin",
+    "insaneBehaviors.ProjectileMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
