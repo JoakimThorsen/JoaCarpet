@@ -22,6 +22,8 @@ package com.joacarpet.mixin.insaneBehaviors;
 
 import com.joacarpet.InsaneBehaviors;
 import com.joacarpet.JoaCarpetSettings;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,13 +36,13 @@ import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToVec3;
 
 @Mixin(Projectile.class)
 public class ProjectileMixin {
-    @Redirect(method = "shoot", at = @At(
+    @WrapOperation(method = "shoot", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/phys/Vec3;add(DDD)Lnet/minecraft/world/phys/Vec3;"
     ))
-    private Vec3 add(Vec3 vec3, double d, double e, double f, double deltaMovementX, double deltaMovementY, double deltaMovementZ, float deltaMovementMultiplier, float divergence) {
+    private Vec3 add(Vec3 vec3, double d, double e, double f, Operation<Vec3> original, double deltaMovementX, double deltaMovementY, double deltaMovementZ, float deltaMovementMultiplier, float divergence) {
         if (JoaCarpetSettings.insaneBehaviors.equals("off")) {
-            return new Vec3(vec3.x + d, vec3.y + e, vec3.z + f);
+            return original.call(vec3, d, e, f);
         }
 
         ArrayList<Float> unitVelocity = InsaneBehaviors.nextEvenlyDistributedPoint(3);
@@ -63,7 +65,7 @@ public class ProjectileMixin {
             );
             default -> throw new IllegalStateException("Unexpected value: " + JoaCarpetSettings.insaneBehaviors);
         };
-        return new Vec3(vec3.x + velocity.x, vec3.y + velocity.y, vec3.z + velocity.z);
+        return original.call(vec3, vec3.x + velocity.x, vec3.y + velocity.y, vec3.z + velocity.z);
     }
 
 }

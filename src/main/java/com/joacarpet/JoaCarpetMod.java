@@ -24,6 +24,7 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
+import com.joacarpet.commands.BlockTicklingCommand;
 import com.joacarpet.commands.InsaneBehaviorsCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
@@ -49,7 +50,7 @@ import org.slf4j.LoggerFactory;
 public class JoaCarpetMod implements ModInitializer, CarpetExtension {
     public static final Logger LOGGER =
     //#if MC >= 11800
-            LoggerFactory.getLogger("joacarpet");
+    LoggerFactory.getLogger("joacarpet");
     //#else
 //$$     LogManager.getLogger("joacarpet");
     //#endif
@@ -69,6 +70,7 @@ public class JoaCarpetMod implements ModInitializer, CarpetExtension {
         //#endif
     ) {
         InsaneBehaviorsCommand.register(dispatcher);
+        BlockTicklingCommand.register(dispatcher);
     }
 
     @Override

@@ -21,6 +21,8 @@
 package com.joacarpet.mixin.insaneBehaviors;
 
 import com.joacarpet.JoaCarpetSettings;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -44,20 +46,20 @@ import static com.joacarpet.InsaneBehaviors.nextEvenlyDistributedPoint;
 
 @Mixin(PistonBaseBlock.class)
 public class PistonBaseBlockMixin {
-    @Redirect(method = "moveBlocks", at = @At(
+    @WrapOperation(method = "moveBlocks", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/level/block/piston/PistonBaseBlock;dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;)V"
     ))
-    private void dropResources(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, @Nullable BlockEntity blockEntity) {
+    private void dropResources(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, @Nullable BlockEntity blockEntity, Operation<Void> original) {
+        if (JoaCarpetSettings.insaneBehaviors.equals("off")) {
+            original.call(blockState, levelAccessor, blockPos, blockEntity);
+            return;
+        }
         // net.minecraft.world.level.block.Block.dropResources(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BlockEntity)
         if (levelAccessor instanceof ServerLevel) {
             Level level = (ServerLevel) levelAccessor;
             Block.getDrops(blockState, (ServerLevel)levelAccessor, blockPos, blockEntity).forEach(itemStack -> {
-                if (JoaCarpetSettings.insaneBehaviors.equals("off")) {
-                    Block.popResource(level, blockPos, itemStack);
-                } else {
-                    customPopResource(level, blockPos, itemStack);
-                }
+                customPopResource(level, blockPos, itemStack);
             });
             //#if MC >= 11900
             blockState.spawnAfterBreak((ServerLevel)levelAccessor, blockPos, ItemStack.EMPTY, true);

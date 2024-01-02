@@ -4,16 +4,15 @@
   "package": "com.joacarpet.mixin",
   "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
   "mixins": [
-    "MinecraftServerMixin",
-
     "blockTickling.ItemMixin",
     "blockTickling.PlayerMixin",
-
     "insaneBehaviors.BlockMixin",
     "insaneBehaviors.ContainersMixin",
     "insaneBehaviors.DefaultDispenseItemBehaviorMixin",
     "insaneBehaviors.PistonBaseBlockMixin",
-    "insaneBehaviors.ProjectileMixin"
+    "insaneBehaviors.ProjectileMixin",
+    "miscSurvival.DisableEndermanGriefingMixin",
+    "miscSurvival.DisableElytraRocketsMixin"
   ],
   "client": [
   ],

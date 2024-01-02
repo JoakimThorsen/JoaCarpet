@@ -20,26 +20,37 @@
 
 package com.joacarpet.mixin.blockTickling;
 
-import com.joacarpet.JoaCarpetMod;
-import com.joacarpet.JoaCarpetSettings;
+import com.joacarpet.BlockTicklingSetting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC < 11900
+//$$ import net.minecraft.world.level.block.Block;
+//#endif
+
 @Mixin(Item.class)
 class ItemMixin {
+
+    @Unique
+    private static final int mysteryFlag = 2;
+    @Unique
+    private static final int mysteryNumber = 512;
+
     @Inject(method = "useOn", at = @At("RETURN"), cancellable = true)
     public void useOn(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir) {
-        if (JoaCarpetSettings.blockTickling.equals("off") || !useOnContext.getItemInHand().is(Items.FEATHER)) {
+        if (!(BlockTicklingSetting.get(BlockTicklingSetting.BLOCKUPDATES, useOnContext)
+        || BlockTicklingSetting.get(BlockTicklingSetting.SHAPEUPDATES, useOnContext))
+        || !useOnContext.getItemInHand().is(Items.FEATHER)) {
             return;
         }
         Level level = useOnContext.getLevel();
@@ -50,18 +61,16 @@ class ItemMixin {
         BlockPos neighborPos = clickedPos.relative(useOnContext.getClickedFace());
         BlockState neighborBlockState = level.getBlockState(neighborPos);
 
-        JoaCarpetMod.LOGGER.info("NeighborPos: {}", neighborPos);
-
-        if (JoaCarpetSettings.blockTickling.equals("blockupdates") || JoaCarpetSettings.blockTickling.equals("both")) {
+        if (BlockTicklingSetting.get(BlockTicklingSetting.BLOCKUPDATES, useOnContext)) {
             level.neighborChanged(clickedPos, neighborBlockState.getBlock(), neighborPos);
         }
-        if (JoaCarpetSettings.blockTickling.equals("shapeupdates") || JoaCarpetSettings.blockTickling.equals("both")) {
+        if (BlockTicklingSetting.get(BlockTicklingSetting.SHAPEUPDATES, useOnContext)) {
             //#if MC >= 11900
-            level.neighborShapeChanged(useOnContext.getClickedFace(), neighborBlockState, clickedPos, neighborPos, 2, 512);
+            level.neighborShapeChanged(useOnContext.getClickedFace(), neighborBlockState, clickedPos, neighborPos, mysteryFlag, mysteryNumber);
             //#else
 //$$             BlockState clickedBlockState = level.getBlockState(clickedPos);
 //$$             BlockState newState = clickedBlockState.updateShape(useOnContext.getClickedFace(), neighborBlockState, level, clickedPos, neighborPos);
-//$$             Block.updateOrDestroy(clickedBlockState, newState, level, clickedPos, 2, 512);
+//$$             Block.updateOrDestroy(clickedBlockState, newState, level, clickedPos, mysteryFlag, mysteryNumber);
             //#endif
         }
         cir.setReturnValue(InteractionResult.SUCCESS);

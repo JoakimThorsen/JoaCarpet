@@ -22,18 +22,11 @@ package com.joacarpet;
 
 //#if MC >= 11900
 import carpet.api.settings.Rule;
+import static carpet.api.settings.RuleCategory.*;
 //#else
 //$$ import carpet.settings.Rule;
+//$$ import static carpet.settings.RuleCategory.*;
 //#endif
-
-//#if MC >= 11900
-import static carpet.api.settings.RuleCategory.COMMAND;
-import static carpet.api.settings.RuleCategory.CREATIVE;
-//#else
-//$$ import static carpet.settings.RuleCategory.COMMAND;
-//$$ import static carpet.settings.RuleCategory.CREATIVE;
-//#endif
-
 
 public class JoaCarpetSettings {
     public static final String JOA = "JoaCarpet";
@@ -62,12 +55,34 @@ public class JoaCarpetSettings {
 
     @Rule(
             //#if MC >= 11900
-            categories = {CREATIVE, JOA},
+            categories = {COMMAND, CREATIVE, JOA},
             //#else
-//$$             category = {CREATIVE, JOA},
-//$$             desc="Lets you send manual block and/or shape updates to blocks using a feather item. Updates are sent from the block in front of the face you're clicking on. Useful if you're working with update interations off or with budded blocks.",
+//$$             category = {COMMAND, CREATIVE, JOA},
+//$$             desc="Controls who can use the `/blocktickling` command, which lets you send manual block and/or shape updates to blocks using a feather item. Updates are sent from the block in front of the face you're clicking on. Useful if you're working with budded blocks, with /carpet interactionUpdates off, or with intricarpet's /interaction command.",
             //#endif
-            options = {"off", "blockupdates", "shapeupdates", "both"}
+            options = {"true", "ops", "false", "0", "1", "2", "3", "4"}
     )
-    public static String blockTickling = "off";
+    public static String commandBlockTickling = "ops";
+
+    @Rule(
+            //#if MC >= 11900
+            categories = {SURVIVAL, JOA},
+            //#else
+//$$             category = {SURVIVAL, JOA},
+//$$             desc="Disables enderman griefing.",
+            //#endif
+            options = {"true", "false"}
+    )
+    public static String disableEndermanGriefing = "false";
+
+    @Rule(
+            //#if MC >= 11900
+            categories = {SURVIVAL, JOA},
+            //#else
+//$$             category = {SURVIVAL, JOA},
+//$$             desc="Disables using rockets with elytra.",
+            //#endif
+            options = {"true", "false"}
+    )
+    public static String disableElytraRockets = "false";
 }

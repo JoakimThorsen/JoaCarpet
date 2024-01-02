@@ -18,36 +18,25 @@
  * along with JoaCarpet.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.joacarpet.mixin.blockTickling;
+package com.joacarpet.mixin.miscSurvival;
 
-import com.joacarpet.BlockTicklingSetting;
-import com.joacarpet.JoaCarpetMod;
 import com.joacarpet.JoaCarpetSettings;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.FireworkRocketItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Player.class)
-public abstract class PlayerMixin extends LivingEntity {
-
-    protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
-        super(entityType, level);
-    }
-
-    @Inject(method="isSecondaryUseActive", at = @At("HEAD"), cancellable = true)
-    public void isSecondaryUseActive(CallbackInfoReturnable<Boolean> cir) {
-        if (this.getMainHandItem().is(Items.FEATHER)
-            && BlockTicklingSetting.get(BlockTicklingSetting.OVERRIDERIGHTCLICK, this.getUUID())
-            && (BlockTicklingSetting.get(BlockTicklingSetting.BLOCKUPDATES, this.getUUID())
-            || BlockTicklingSetting.get(BlockTicklingSetting.SHAPEUPDATES, this.getUUID())))
-        {
-            cir.setReturnValue(true);
-        }
+@Mixin(FireworkRocketItem.class)
+public abstract class DisableElytraRocketsMixin {
+    @Inject(method = "use", at = @At("HEAD"), cancellable = true)
+    public void use(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
+        if (JoaCarpetSettings.disableElytraRockets.equals("true"))
+            cir.setReturnValue(InteractionResultHolder.pass(player.getItemInHand(interactionHand)));
     }
 }

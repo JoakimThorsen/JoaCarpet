@@ -21,6 +21,8 @@
 package com.joacarpet.mixin.insaneBehaviors;
 
 import com.joacarpet.JoaCarpetSettings;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -29,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
@@ -39,13 +40,18 @@ import static com.joacarpet.InsaneBehaviors.*;
 @Mixin(DefaultDispenseItemBehavior.class)
 public class DefaultDispenseItemBehaviorMixin {
 
-	@Redirect(method = "spawnItem", at = @At(
+	@WrapOperation(method = "spawnItem", at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/item/ItemEntity;setDeltaMovement(DDD)V"
 	))
-	private static void setDeltaMovement(ItemEntity itemEntity, double d, double e, double f, Level _level, ItemStack _itemStack, int i, Direction direction, Position _position) {
+	private static void setDeltaMovement(
+			ItemEntity itemEntity,
+			double d, double e, double f,
+			Operation<ItemEntity> original,
+			Level _level, ItemStack _itemStack, int i, Direction direction, Position _position
+	) {
 		if (JoaCarpetSettings.insaneBehaviors.equals("off")) {
-			itemEntity.setDeltaMovement(d, e, f);
+			original.call(itemEntity, d, e, f);
 			return;
 		}
 		ArrayList<Float> unitVelocity = nextEvenlyDistributedPoint(3);
@@ -68,6 +74,6 @@ public class DefaultDispenseItemBehaviorMixin {
 			);
 			default -> throw new IllegalStateException("Unexpected value: " + JoaCarpetSettings.insaneBehaviors);
 		};
-		itemEntity.setDeltaMovement(velocity);
+		original.call(itemEntity, velocity.x, velocity.y, velocity.z);
 	}
 }
