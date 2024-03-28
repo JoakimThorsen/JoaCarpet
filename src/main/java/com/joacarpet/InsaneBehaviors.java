@@ -20,12 +20,10 @@
 
 package com.joacarpet;
 
-import carpet.utils.Messenger;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class InsaneBehaviors {
     private static int counter = 0;
