@@ -44,6 +44,28 @@ public class JoaCarpetSettings {
 
     @Rule(
             //#if MC >= 11900
+            categories = {CREATIVE, JOA},
+            //#else
+//$$             category = {CREATIVE, JOA},
+//$$             desc="Determines the incrementing behavior of the `insaneBehaviors` rule. If set to normal, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`Freeze` will stop both the counter and resolution from incrementing.",
+            //#endif
+            options = {"normal", "loopCurrentResolution", "freeze"}
+    )
+    public static String insaneBehaviorsIncrement = "normal";
+
+    @Rule(
+            //#if MC >= 11900
+            categories = {CREATIVE, JOA},
+            //#else
+//$$             category = {CREATIVE, JOA},
+//$$             desc="Makes the `insaneBehaviors` rule skip points that coincide with previous resolutions, reducing the overall search space by a fraction that approaches 1/(2^resolution)",
+            //#endif
+            options = {"true", "false"}
+    )
+    public static String insaneBehaviorsSkipVisitedPoints = "false";
+
+    @Rule(
+            //#if MC >= 11900
             categories = {COMMAND, CREATIVE, JOA},
             //#else
 //$$             category = {COMMAND, CREATIVE, JOA},

@@ -25,24 +25,43 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InsaneBehaviors {
     private static int counter = 0;
     private static int resolution = 2;
 
     public static ArrayList<Float> nextEvenlyDistributedPoint(int dimensions) {
-        int remainder = counter;
-        ArrayList<Float> list = new ArrayList<>();
-        for (int i = 0; i < dimensions; i++) {
-            list.add((float) (remainder % resolution) / (resolution-1));
-            remainder = remainder / resolution;
+        while (true) {
+            int remainder = counter;
+            ArrayList<Float> list = new ArrayList<>();
+
+            for (int i = 0; i < dimensions; i++) {
+                list.add((float) (remainder % resolution) / (resolution-1));
+                remainder = remainder / resolution;
+            }
+
+            // Remove previously visited points
+            var visited = false;
+            float previousStepSize = 1 / ((float) (resolution - 1) / 2);
+            if (JoaCarpetSettings.insaneBehaviorsSkipVisitedPoints.equals("true")
+                    && resolution != 2
+                    && list.stream().allMatch(i -> i % previousStepSize == 0)) {
+                visited = true;
+            }
+
+            if (!JoaCarpetSettings.insaneBehaviorsIncrement.equals("freeze")) {
+                counter++;
+                if (JoaCarpetSettings.insaneBehaviorsIncrement.equals("normal")
+                        && counter >= Math.pow(resolution, dimensions)) {
+                    resolution = (resolution - 1) * 2 + 1;
+                    counter = 0;
+                }
+            }
+
+            if (visited) continue;
+            return list;
         }
-        counter++;
-        if(counter >= Math.pow(resolution, dimensions)) {
-            resolution = (resolution-1) *2 +1;
-            counter = 0;
-        }
-        return list;
     }
 
     public static Vec3 mapUnitVelocityToVec3(ArrayList<Float> velocity, int factor, double xCenter, double xVariance, double yCenter, double yVariance, double zCenter, double zVariance) {
