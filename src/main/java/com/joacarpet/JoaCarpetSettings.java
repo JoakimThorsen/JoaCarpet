@@ -50,7 +50,7 @@ public class JoaCarpetSettings {
             categories = {CREATIVE, JOA},
             //#else
 //$$             category = {CREATIVE, JOA},
-//$$             desc="Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`Freeze` will stop both the counter and resolution from incrementing.",
+//$$             desc="Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`freeze` will stop both the counter and resolution from incrementing.",
             //#endif
             options = {"normal", "loopCurrentResolution", "freeze"}
     )
@@ -116,7 +116,7 @@ public class JoaCarpetSettings {
             categories = {SURVIVAL, JOA, EXPERIMENTAL},
             //#else
 //$$             category = {SURVIVAL, JOA},
-//$$             desc="Makes rocket flying only activate while standing on the ground, and makes it only propel you upwards. Disables using rockets while already flying.",
+//$$             desc="Makes rocket flying only activate while standing on the ground, and makes it only propel you upwards. Disables using rockets while already flying.\nOnly works in singleplayer, or with JoaCarpet installed both serverside and clientside.",
             //#endif
             options = {"true", "false"}
     )
@@ -125,12 +125,13 @@ public class JoaCarpetSettings {
     @Rule(
             //#if MC >= 11900
             categories = {SURVIVAL, JOA, EXPERIMENTAL},
-            validators = Validators.NonNegativeNumber.class
+            validators = Validators.NonNegativeNumber.class,
             //#else
 //$$             category = {SURVIVAL, JOA},
 //$$             desc="The vertical acceleration power used with the `verticalRocketsFromStandstill` rule.",
-//$$             validate = Validator.NONNEGATIVE_NUMBER.class
+//$$             validate = Validator.NONNEGATIVE_NUMBER.class,
             //#endif
+            options = {"0.75"}
     )
     public static double verticalRocketPower = 0.75;
 }

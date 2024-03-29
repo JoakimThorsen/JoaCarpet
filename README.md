@@ -27,17 +27,19 @@ The command used for the `insaneBehaviors` rule.
 
 * Type: `String`
 * Categories: `COMMAND`, `CREATIVE`, `JOA`
-* Options `true`, `ops`, `false`, `0`, `1`, `2`, `3`, `4`
+* Options: `true`, `ops`, `false`, `0`, `1`, `2`, `3`, `4`
 * Default value: `ops`
 
 ### insaneBehaviorsIncrement
 Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.
+
 `loopCurrentResolution` will instead restart at the beginning of the current resolution.
+
 `Freeze` will stop both the counter and resolution from incrementing.
 
 * Type: `String`
 * Categories: `CREATIVE`, `JOA`
-* Options `normal`, `loopCurrentResolution`, `freeze`
+* Options: `normal`, `loopCurrentResolution`, `freeze`
 * Default value: `normal`
 
 ### insaneBehaviorsSkipVisitedPoints
@@ -45,7 +47,7 @@ Makes the `insaneBehaviors` rule skip points that coincide with previous resolut
 
 * Type: `Boolean`
 * Categories: `CREATIVE`, `JOA`
-* Options `true`, `false`
+* Options: `true`, `false`
 * Default value: `false`
 
 ### blockTickling
@@ -53,7 +55,7 @@ Lets you send manual block and/or shape updates to blocks using a feather item. 
 
 * Type: `String`
 * Categories: `CREATIVE`, `JOA`
-* Options `off`, `blockupdates`, `shapeupdates`, `both`
+* Options: `off`, `blockupdates`, `shapeupdates`, `both`
 * Default value: `off`
 
 ### disableEndermanGriefing
@@ -61,7 +63,7 @@ Disables enderman griefing.
 
 * Type: `Boolean`
 * Categories: `SURVIVAL`, `JOA`
-* Options `true`, `false`
+* Options: `true`, `false`
 * Default value: `false`
 
 ### disableElytraRockets
@@ -69,15 +71,17 @@ Disables using rockets with elytra.
 
 * Type: `Boolean`
 * Categories: `SURVIVAL`, `JOA`
-* Options `true`, `false`
+* Options: `true`, `false`
 * Default value: `false`
 
 ### verticalRocketsFromStandstill
 Makes rocket flying only activate while standing on the ground, and makes it only propel you upwards. Disables using rockets while already flying.
 
+Only works in singleplayer, or with JoaCarpet installed both serverside and clientside.
+
 * Type: `Boolean`
 * Categories: `SURVIVAL`, `JOA`, `EXPERIMENTAL`
-* Options `true`, `false`
+* Options: `true`, `false`
 * Default value: `false`
 
 ### verticalRocketPower
