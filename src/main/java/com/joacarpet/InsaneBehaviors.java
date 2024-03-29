@@ -50,9 +50,9 @@ public class InsaneBehaviors {
 
             if (!JoaCarpetSettings.insaneBehaviorsIncrement.equals("freeze")) {
                 counter++;
-                if (JoaCarpetSettings.insaneBehaviorsIncrement.equals("normal")
-                        && counter >= Math.pow(resolution, dimensions)) {
-                    resolution = (resolution - 1) * 2 + 1;
+                if (counter >= Math.pow(resolution, dimensions)) {
+                    if (JoaCarpetSettings.insaneBehaviorsIncrement.equals("normal"))
+                        resolution = (resolution - 1) * 2 + 1;
                     counter = 0;
                 }
             }
