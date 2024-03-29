@@ -31,7 +31,9 @@ The command used for the `insaneBehaviors` rule.
 * Default value: `ops`
 
 ### insaneBehaviorsIncrement
-Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`Freeze` will stop both the counter and resolution from incrementing.
+Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.
+`loopCurrentResolution` will instead restart at the beginning of the current resolution.
+`Freeze` will stop both the counter and resolution from incrementing.
 
 * Type: `String`
 * Categories: `CREATIVE`, `JOA`
