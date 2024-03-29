@@ -57,7 +57,7 @@ public class InsaneBehaviors {
                 }
             }
 
-            if (visited) continue;
+            if (visited && !JoaCarpetSettings.insaneBehaviorsIncrement.equals("freeze")) continue;
             return list;
         }
     }
