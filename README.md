@@ -54,7 +54,7 @@ Lets you send manual block and/or shape updates to blocks using a feather item. 
 * Options `off`, `blockupdates`, `shapeupdates`, `both`
 * Default value: `off`
 
-## disableEndermanGriefing
+### disableEndermanGriefing
 Disables enderman griefing.
 
 * Type: `Boolean`
@@ -62,7 +62,7 @@ Disables enderman griefing.
 * Options `true`, `false`
 * Default value: `false`
 
-## disableElytraRockets
+### disableElytraRockets
 Disables using rockets with elytra.
 
 * Type: `Boolean`
@@ -70,7 +70,7 @@ Disables using rockets with elytra.
 * Options `true`, `false`
 * Default value: `false`
 
-## verticalRocketsFromStandstill
+### verticalRocketsFromStandstill
 Makes rocket flying only activate while standing on the ground, and makes it only propel you upwards. Disables using rockets while already flying.
 
 * Type: `Boolean`
@@ -78,7 +78,7 @@ Makes rocket flying only activate while standing on the ground, and makes it onl
 * Options `true`, `false`
 * Default value: `false`
 
-## verticalRocketPower
+### verticalRocketPower
 The vertical acceleration power used with the `verticalRocketsFromStandstill` rule.
 
 * Type: `Double`
