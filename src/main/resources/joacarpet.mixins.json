@@ -12,7 +12,9 @@
     "insaneBehaviors.PistonBaseBlockMixin",
     "insaneBehaviors.ProjectileMixin",
     "miscSurvival.DisableEndermanGriefingMixin",
-    "miscSurvival.DisableElytraRocketsMixin"
+    "miscSurvival.DisableElytraRocketsMixin",
+    "miscSurvival.VerticalRocketsFromStandstillMixin1",
+    "miscSurvival.VerticalRocketsFromStandstillMixin2"
   ],
   "client": [
   ],

@@ -22,10 +22,13 @@ package com.joacarpet;
 
 //#if MC >= 11900
 import carpet.api.settings.Rule;
+import carpet.api.settings.Validators;
+
 import static carpet.api.settings.RuleCategory.*;
 //#else
 //$$ import carpet.settings.Rule;
 //$$ import static carpet.settings.RuleCategory.*;
+//$$ import carpet.settings.Validator;
 //#endif
 
 public class JoaCarpetSettings {
@@ -47,7 +50,7 @@ public class JoaCarpetSettings {
             categories = {CREATIVE, JOA},
             //#else
 //$$             category = {CREATIVE, JOA},
-//$$             desc="Determines the incrementing behavior of the `insaneBehaviors` rule. If set to normal, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`Freeze` will stop both the counter and resolution from incrementing.",
+//$$             desc="Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`Freeze` will stop both the counter and resolution from incrementing.",
             //#endif
             options = {"normal", "loopCurrentResolution", "freeze"}
     )
@@ -107,4 +110,27 @@ public class JoaCarpetSettings {
             options = {"true", "false"}
     )
     public static String disableElytraRockets = "false";
+
+    @Rule(
+            //#if MC >= 11900
+            categories = {SURVIVAL, JOA, EXPERIMENTAL},
+            //#else
+//$$             category = {SURVIVAL, JOA},
+//$$             desc="Makes rocket flying only activate while standing on the ground, and makes it only propel you upwards. Disables using rockets while already flying.",
+            //#endif
+            options = {"true", "false"}
+    )
+    public static String verticalRocketsFromStandstill = "false";
+
+    @Rule(
+            //#if MC >= 11900
+            categories = {SURVIVAL, JOA, EXPERIMENTAL},
+            validators = Validators.NonNegativeNumber.class
+            //#else
+//$$             category = {SURVIVAL, JOA},
+//$$             desc="The vertical acceleration power used with the `verticalRocketsFromStandstill` rule.",
+//$$             validate = Validator.NONNEGATIVE_NUMBER.class
+            //#endif
+    )
+    public static double verticalRocketPower = 0.75;
 }

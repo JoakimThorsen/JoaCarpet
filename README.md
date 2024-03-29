@@ -30,6 +30,22 @@ The command used for the `insaneBehaviors` rule.
 * Options `true`, `ops`, `false`, `0`, `1`, `2`, `3`, `4`
 * Default value: `ops`
 
+### insaneBehaviorsIncrement
+Determines the incrementing behavior of the `insaneBehaviors` rule. If set to `normal`, the counter increments normally until all points of the current resolution have been exhausted, then step to the next resolution.\n`loopCurrentResolution` will instead restart at the beginning of the current resolution.\n`Freeze` will stop both the counter and resolution from incrementing.
+
+* Type: `String`
+* Categories: `CREATIVE`, `JOA`
+* Options `normal`, `loopCurrentResolution`, `freeze`
+* Default value: `normal`
+
+### insaneBehaviorsSkipVisitedPoints
+Makes the `insaneBehaviors` rule skip points that coincide with previous resolutions, reducing the overall search space by a fraction that approaches 1/(2^resolution)
+
+* Type: `Boolean`
+* Categories: `CREATIVE`, `JOA`
+* Options `true`, `false`
+* Default value: `false`
+
 ### blockTickling
 Lets you send manual block and/or shape updates to blocks using a feather item. Shape updates are sent from the block in front of the face you're clicking on. Useful if you're working with update interactions off or with budded blocks.
 
@@ -37,3 +53,34 @@ Lets you send manual block and/or shape updates to blocks using a feather item. 
 * Categories: `CREATIVE`, `JOA`
 * Options `off`, `blockupdates`, `shapeupdates`, `both`
 * Default value: `off`
+
+## disableEndermanGriefing
+Disables enderman griefing.
+
+* Type: `Boolean`
+* Categories: `SURVIVAL`, `JOA`
+* Options `true`, `false`
+* Default value: `false`
+
+## disableElytraRockets
+Disables using rockets with elytra.
+
+* Type: `Boolean`
+* Categories: `SURVIVAL`, `JOA`
+* Options `true`, `false`
+* Default value: `false`
+
+## verticalRocketsFromStandstill
+Makes rocket flying only activate while standing on the ground, and makes it only propel you upwards. Disables using rockets while already flying.
+
+* Type: `Boolean`
+* Categories: `SURVIVAL`, `JOA`, `EXPERIMENTAL`
+* Options `true`, `false`
+* Default value: `false`
+
+## verticalRocketPower
+The vertical acceleration power used with the `verticalRocketsFromStandstill` rule.
+
+* Type: `Double`
+* Categories: `SURVIVAL`, `JOA`, `EXPERIMENTAL`
+* Default value: `0.75`

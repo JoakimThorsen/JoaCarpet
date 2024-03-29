@@ -97,7 +97,7 @@ if (System.getenv("JITPACK") == "true") {
 	version = 'v' + fullModVersion
 } else {
 	base.archivesName = project.archives_base_name
-	version = 'mc' + project.minecraft_version + '-v' + fullModVersion
+	version = 'mc' + project.minecraft_display_version + '-v' + fullModVersion
 }
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
