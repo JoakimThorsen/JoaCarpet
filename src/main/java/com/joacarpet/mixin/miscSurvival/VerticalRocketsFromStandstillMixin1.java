@@ -40,10 +40,11 @@ public class VerticalRocketsFromStandstillMixin1 {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isFallFlying()Z")
     )
     private boolean requireOnGround(Player player, Operation<Boolean> original) {
+        boolean originalReturnValue = original.call(player);
         if (JoaCarpetSettings.verticalRocketsFromStandstill.equals("true"))
             return player.onGround()
                     && Iterables.get(player.getArmorSlots(), 2).is(Items.ELYTRA)
                     && Iterables.get(player.getArmorSlots(), 2).getDamageValue() < 431;
-        return original.call(player);
+        return originalReturnValue;
     }
 }

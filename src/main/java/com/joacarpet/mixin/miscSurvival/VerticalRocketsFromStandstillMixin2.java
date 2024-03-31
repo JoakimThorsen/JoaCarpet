@@ -39,10 +39,11 @@ public class VerticalRocketsFromStandstillMixin2 {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isFallFlying()Z")
     )
     private boolean ignoreIsFallFlying(LivingEntity livingEntity, Operation<Boolean> original) {
+        boolean originalReturnValue = original.call(livingEntity);
         if (JoaCarpetSettings.verticalRocketsFromStandstill.equals("true")){
             return true;
         }
-        return original.call(livingEntity);
+        return originalReturnValue;
     }
 
     @ModifyArgs(
