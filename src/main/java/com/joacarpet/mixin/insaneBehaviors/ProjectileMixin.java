@@ -36,7 +36,14 @@ import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToVec3;
 
 @Mixin(Projectile.class)
 public class ProjectileMixin {
-    @WrapOperation(method = "shoot", at = @At(
+    @WrapOperation(
+            //#if MC >= 12100
+            method = "getMovementToShoot"
+            //#else
+//$$             method = "shoot"
+            //#endif
+
+            , at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/phys/Vec3;add(DDD)Lnet/minecraft/world/phys/Vec3;"
     ))

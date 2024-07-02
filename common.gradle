@@ -36,6 +36,8 @@ dependencies {
 
 	modImplementation "carpet:fabric-carpet:${project.carpet_minecraft_version}-${project.carpet_core_version}"
 
+	runtimeOnly("net.fabricmc:sponge-mixin:0.13.3+mixin.0.8.5")
+
 	// runtime mods
 //	if (mcVersion < 11904) {
 //		modRuntimeOnly(mcVersion < 11900 ? "com.github.astei:lazydfu:0.1.2" : "com.github.Fallen-Breath:lazydfu:a7cfc44c0c")
