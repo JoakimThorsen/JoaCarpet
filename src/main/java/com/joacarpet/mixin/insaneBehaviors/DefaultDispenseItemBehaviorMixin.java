@@ -72,7 +72,7 @@ public class DefaultDispenseItemBehaviorMixin {
 					0.2,                                 0.0075 * (double) i,
 					0.3 * (double) direction.getStepZ(), 0.0075 * (double) i
 			);
-			default -> throw new IllegalStateException("Unexpected value: " + JoaCarpetSettings.insaneBehaviors);
+			default -> throw new IllegalStateException("Unexpected insaneBehaviors value: " + JoaCarpetSettings.insaneBehaviors);
 		};
 		original.call(itemEntity, velocity.x, velocity.y, velocity.z);
 	}

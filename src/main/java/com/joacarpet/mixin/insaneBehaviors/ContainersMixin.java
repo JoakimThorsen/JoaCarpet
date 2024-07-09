@@ -20,41 +20,66 @@
 
 package com.joacarpet.mixin.insaneBehaviors;
 
+import com.joacarpet.JoaCarpetSettings;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+import java.util.ArrayList;
+
+import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToVec3;
+import static com.joacarpet.InsaneBehaviors.nextEvenlyDistributedPoint;
 
 @Mixin(Containers.class)
 public class ContainersMixin {
 
-//    @Redirect(method = "dropItemStack", at = @At(
-//            value = "INVOKE",
-//            target = "Lnet/minecraft/world/entity/item/ItemEntity;setDeltaMovement(DDD)V"
-//    ))
-//    private static void setDeltaMovement(ItemEntity itemEntity, double d, double e, double f) {
-//        if (JoaCarpetSettings.insaneBehaviors.equals("off")) {
-//            itemEntity.setDeltaMovement(d+1, e, f);
-//            return;
-//        }
-//        // Vec3 unitVelocity = nextEvenlyDistributedPoint();
-//        // Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
-//        //     // net.minecraft.core.dispenser.DefaultDispenseItemBehavior.spawnItem, Line 7
-//        //     case "sensible" -> mapUnitVelocityToVec3(
-//        //             unitVelocity,
-//        //             1,
-//        //             0.3 * (double) direction.getStepX(), 0.0172275 * (double) i,
-//        //             0.2,                                 0.0172275 * (double) i,
-//        //             0.3 * (double) direction.getStepZ(), 0.0172275 * (double) i
-//        //     );
-//        //     // spawnItem from pre-1.19
-//        //     case "extreme" -> mapUnitVelocityToVec3(
-//        //             unitVelocity,
-//        //             8,
-//        //             0.3 * (double) direction.getStepX(), 0.0075 * (double) i,
-//        //             0.2,                                 0.0075 * (double) i,
-//        //             0.3 * (double) direction.getStepZ(), 0.0075 * (double) i
-//        //     );
-//        //     default -> throw new IllegalStateException("Unexpected value: " + JoaCarpetSettings.insaneBehaviors);
-//        // };
-//        // itemEntity.setDeltaMovement(velocity);
-//    }
+    @WrapOperation(method = "dropItemStack", at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/item/ItemEntity;setDeltaMovement(DDD)V"
+    ))
+    private static void setDeltaMovement(ItemEntity itemEntity, double d, double e, double f, Operation<Void> original, Level level, double originX, double originY, double originZ, ItemStack itemStack) {
+        if (JoaCarpetSettings.insaneBehaviors.equals("off") || JoaCarpetSettings.insaneBehaviorsCartYeetingException.equals("disableContainerContents")) {
+            original.call(itemEntity, d, e, f);
+            return;
+        }
+        ArrayList<Float> unitVelocity = nextEvenlyDistributedPoint(6);
+
+        double g = EntityType.ITEM.getWidth();
+        double h = 1.0 - g;
+        double i = g / 2.0;
+        double j = Math.floor(originX) + unitVelocity.get(3) * h + i;
+        double k = Math.floor(originY) + unitVelocity.get(4) * h;
+        double l = Math.floor(originZ) + unitVelocity.get(5) * h + i;
+
+
+        itemEntity.setPos(j, k, l);
+
+        Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
+            // net.minecraft.world.Containers.dropItemStack, Line 11
+            case "sensible" -> mapUnitVelocityToVec3(
+                    new ArrayList<>(unitVelocity.subList(0, 2)),
+                    1,
+                    0.0, 0.11485000171139836,
+                    0.2, 0.11485000171139836,
+                    0.0, 0.11485000171139836
+            ); // e.g. [-0.11485000171139836, 0.31485000171139836, 0.0]
+            // net.minecraft.world.Containers.dropItemStack from pre-1.19
+            case "extreme" -> mapUnitVelocityToVec3(
+                    new ArrayList<>(unitVelocity.subList(0, 3)),
+                    8,
+                    0.0, 0.05f,
+                    0.2, 0.05f,
+                    0.0, 0.05f
+            ); // e.g. [-0.4, 0.6, 0.0]
+            default -> throw new IllegalStateException("Unexpected insaneBehaviors value: " + JoaCarpetSettings.insaneBehaviors);
+        };
+        original.call(itemEntity, velocity.x, velocity.y, velocity.z);
+    }
 }

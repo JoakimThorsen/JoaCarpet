@@ -70,7 +70,7 @@ public class ProjectileMixin {
                     0.0, (double)0.0075F * (double)divergence,
                     0.0, (double)0.0075F * (double)divergence
             );
-            default -> throw new IllegalStateException("Unexpected value: " + JoaCarpetSettings.insaneBehaviors);
+            default -> throw new IllegalStateException("Unexpected insaneBehaviors value: " + JoaCarpetSettings.insaneBehaviors);
         };
         return original.call(vec3, vec3.x + velocity.x, vec3.y + velocity.y, vec3.z + velocity.z);
     }

@@ -69,6 +69,17 @@ public class JoaCarpetSettings {
 
     @Rule(
             //#if MC >= 11900
+            categories = {CREATIVE, JOA},
+            //#else
+//$$             category = {CREATIVE, JOA},
+//$$             desc="Makes testing cart yeeting possible by disabling one of the two types of item drops (vehicle item and container items), to make the different iterators not interfere with each other.",
+            //#endif
+            options = {"none", "disableVehicleItem", "disableContainerContents"}
+    )
+    public static String insaneBehaviorsCartYeetingException = "none";
+
+    @Rule(
+            //#if MC >= 11900
             categories = {COMMAND, CREATIVE, JOA},
             //#else
 //$$             category = {COMMAND, CREATIVE, JOA},

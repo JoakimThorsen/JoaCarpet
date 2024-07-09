@@ -6,13 +6,14 @@
   "mixins": [
     "blockTickling.ItemMixin",
     "blockTickling.PlayerMixin",
+    "insaneBehaviors.VehicleEntityOrAbstractMinecartMixin",
     "insaneBehaviors.BlockMixin",
     "insaneBehaviors.ContainersMixin",
     "insaneBehaviors.DefaultDispenseItemBehaviorMixin",
     "insaneBehaviors.PistonBaseBlockMixin",
     "insaneBehaviors.ProjectileMixin",
-    "miscSurvival.DisableEndermanGriefingMixin",
     "miscSurvival.DisableElytraRocketsMixin",
+    "miscSurvival.DisableEndermanGriefingMixin",
     "miscSurvival.VerticalRocketsFromStandstillMixin1",
     "miscSurvival.VerticalRocketsFromStandstillMixin2"
   ],
