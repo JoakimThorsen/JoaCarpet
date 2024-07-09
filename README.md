@@ -50,6 +50,14 @@ Makes the `insaneBehaviors` rule skip points that coincide with previous resolut
 * Options: `true`, `false`
 * Default value: `false`
 
+### insaneBehaviorsCartYeetingException
+Makes testing cart yeeting possible by disabling one of the two types of item drops (vehicle item and container items), to make the different iterators not interfere with each other.
+
+* Type: `String`
+* Categories: `CREATIVE`, `JOA`
+* Options: `none`, `disableVehicleItem`, `disableContainerContents`
+* Default value: `none
+
 ### blockTickling
 Lets you send manual block and/or shape updates to blocks using a feather item. Shape updates are sent from the block in front of the face you're clicking on. Useful if you're working with update interactions off or with budded blocks.
 
