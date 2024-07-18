@@ -27,7 +27,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-//#if MC >= 12100
+//#if MC >= 12003
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 //#else
 //$$ import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -38,8 +38,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
 
-//#if MC >= 12100
-
+//#if MC >= 12003
 @Mixin(VehicleEntity.class)
 public class VehicleEntityOrAbstractMinecartMixin {
     @WrapOperation(
@@ -49,20 +48,19 @@ public class VehicleEntityOrAbstractMinecartMixin {
                    target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;spawnAtLocation(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"
             )
     )
-
 //#else
 //$$ @Mixin(AbstractMinecart.class)
 //$$ public class VehicleEntityOrAbstractMinecartMixin {
-//$$     @WrapOperation(
-//$$             method = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;destroy(Lnet/minecraft/world/damagesource/DamageSource;)V",
-//$$             at = @At(
-//$$                     value = "INVOKE",
-//$$                     target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;spawnAtLocation(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"
-//$$             )
-//$$     )
+//$$    @WrapOperation(
+//$$            method = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;destroy(Lnet/minecraft/world/damagesource/DamageSource;)V",
+//$$            at = @At(
+//$$                    value = "INVOKE",
+//$$                    target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;spawnAtLocation(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"
+//$$            )
+//$$    )
 //#endif
     private ItemEntity spawnAtLocation(
-            //#if MC >= 12100
+            //#if MC >= 12003
             VehicleEntity
             //#else
 //$$             AbstractMinecart

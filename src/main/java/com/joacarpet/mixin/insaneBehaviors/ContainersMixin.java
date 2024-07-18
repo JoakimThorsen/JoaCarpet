@@ -64,7 +64,7 @@ public class ContainersMixin {
         Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
             // net.minecraft.world.Containers.dropItemStack, Line 11
             case "sensible" -> mapUnitVelocityToVec3(
-                    new ArrayList<>(unitVelocity.subList(0, 2)),
+                    new ArrayList<>(unitVelocity.subList(0, 3)),
                     1,
                     0.0, 0.11485000171139836,
                     0.2, 0.11485000171139836,

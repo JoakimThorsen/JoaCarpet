@@ -28,7 +28,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.ArrayList;
 
@@ -37,8 +36,8 @@ import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToVec3;
 @Mixin(Projectile.class)
 public class ProjectileMixin {
     @WrapOperation(
-            //#if MC >= 12100
-            method = "getMovementToShoot"
+            //#if MC >= 12005
+           method = "getMovementToShoot"
             //#else
 //$$             method = "shoot"
             //#endif
