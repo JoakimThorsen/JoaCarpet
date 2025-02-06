@@ -57,8 +57,14 @@ public class DefaultDispenseItemBehaviorMixin {
 		ArrayList<Float> unitList = nextEvenlyDistributedPoint(3);
 		Vec3 unitVelocity = new Vec3(unitList.get(0), unitList.get(2), unitList.get(1));
 
-		double gx = 0.1 * unitVelocity.x + 0.2;
-		double gz = 0.1 * unitVelocity.z + 0.2;
+		double gx = direction.getStepX() == -1
+				? 0.1 * (1-unitVelocity.x) + 0.2
+				: 0.1 * unitVelocity.x + 0.2;
+
+		double gz = direction.getStepZ() == -1
+				? 0.1 * (1-unitVelocity.z) + 0.2
+				: 0.1 * unitVelocity.z + 0.2;
+
 		Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
 			// net.minecraft.core.dispenser.DefaultDispenseItemBehavior.spawnItem, Line 7
 			case "sensible" -> mapUnitVelocityToTriangularDistribution(
