@@ -55,22 +55,24 @@ public class DefaultDispenseItemBehaviorMixin {
 			return;
 		}
 		ArrayList<Float> unitVelocity = nextEvenlyDistributedPoint(3);
+		double gx = 0.1 * unitVelocity.get(0) + 0.2;
+		double gz = 0.1 * unitVelocity.get(1) + 0.2;
 		Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
 			// net.minecraft.core.dispenser.DefaultDispenseItemBehavior.spawnItem, Line 7
 			case "sensible" -> mapUnitVelocityToVec3(
 					unitVelocity,
 					1,
-					0.3 * (double) direction.getStepX(), 0.0172275 * (double) i,
-					0.2,                                 0.0172275 * (double) i,
-					0.3 * (double) direction.getStepZ(), 0.0172275 * (double) i
+					gx * (double) direction.getStepX(), 0.0172275 * (double) i,
+					0.2,                                0.0172275 * (double) i,
+					gz * (double) direction.getStepZ(), 0.0172275 * (double) i
 			);
 			// spawnItem from pre-1.19
 			case "extreme" -> mapUnitVelocityToVec3(
 					unitVelocity,
 					8,
-					0.3 * (double) direction.getStepX(), 0.0075 * (double) i,
-					0.2,                                 0.0075 * (double) i,
-					0.3 * (double) direction.getStepZ(), 0.0075 * (double) i
+					gx * (double) direction.getStepX(), 0.0075 * (double) i,
+					0.2,                                0.0075 * (double) i,
+					gz * (double) direction.getStepZ(), 0.0075 * (double) i
 			);
 			default -> throw new IllegalStateException("Unexpected insaneBehaviors value: " + JoaCarpetSettings.insaneBehaviors);
 		};
