@@ -62,11 +62,11 @@ public class InsaneBehaviors {
         }
     }
 
-    public static Vec3 mapUnitVelocityToVec3(ArrayList<Float> velocity, int factor, double xCenter, double xVariance, double yCenter, double yVariance, double zCenter, double zVariance) {
+    public static Vec3 mapUnitVelocityToTriangularDistribution(Vec3 velocity, int scaleFactor, double xCenter, double xVariance, double yCenter, double yVariance, double zCenter, double zVariance) {
         return new Vec3(
-                xCenter + (velocity.get(0) -0.5) * 2 * xVariance * factor,
-                yCenter + (velocity.get(2) -0.5) * 2 * yVariance * factor,
-                zCenter + (velocity.get(1) -0.5) * 2 * zVariance * factor
+                xCenter + (velocity.x -0.5) * 2 * xVariance * scaleFactor,
+                yCenter + (velocity.y -0.5) * 2 * yVariance * scaleFactor,
+                zCenter + (velocity.z -0.5) * 2 * zVariance * scaleFactor
         );
     }
 

@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
 
-import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToVec3;
+import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToTriangularDistribution;
 import static com.joacarpet.InsaneBehaviors.nextEvenlyDistributedPoint;
 
 @Mixin(Containers.class)
@@ -49,30 +49,31 @@ public class ContainersMixin {
             original.call(itemEntity, d, e, f);
             return;
         }
-        ArrayList<Float> unitVelocity = nextEvenlyDistributedPoint(6);
+        ArrayList<Float> unitList = nextEvenlyDistributedPoint(6);
 
         double g = EntityType.ITEM.getWidth();
         double h = 1.0 - g;
         double i = g / 2.0;
-        double j = Math.floor(originX) + unitVelocity.get(3) * h + i;
-        double k = Math.floor(originY) + unitVelocity.get(4) * h;
-        double l = Math.floor(originZ) + unitVelocity.get(5) * h + i;
+        double j = Math.floor(originX) + unitList.get(3) * h + i;
+        double k = Math.floor(originY) + unitList.get(4) * h;
+        double l = Math.floor(originZ) + unitList.get(5) * h + i;
 
 
         itemEntity.setPos(j, k, l);
+        Vec3 unitVelocity = new Vec3(unitList.get(0), unitList.get(1), unitList.get(2));
 
         Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
             // net.minecraft.world.Containers.dropItemStack, Line 11
-            case "sensible" -> mapUnitVelocityToVec3(
-                    new ArrayList<>(unitVelocity.subList(0, 3)),
+            case "sensible" -> mapUnitVelocityToTriangularDistribution(
+                    unitVelocity,
                     1,
                     0.0, 0.11485000171139836,
                     0.2, 0.11485000171139836,
                     0.0, 0.11485000171139836
             ); // e.g. [-0.11485000171139836, 0.31485000171139836, 0.0]
             // net.minecraft.world.Containers.dropItemStack from pre-1.19
-            case "extreme" -> mapUnitVelocityToVec3(
-                    new ArrayList<>(unitVelocity.subList(0, 3)),
+            case "extreme" -> mapUnitVelocityToTriangularDistribution(
+                    unitVelocity,
                     8,
                     0.0, 0.05f,
                     0.2, 0.05f,

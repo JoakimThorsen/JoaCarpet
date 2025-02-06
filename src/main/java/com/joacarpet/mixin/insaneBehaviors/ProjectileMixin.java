@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
 
-import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToVec3;
+import static com.joacarpet.InsaneBehaviors.mapUnitVelocityToTriangularDistribution;
 
 @Mixin(Projectile.class)
 public class ProjectileMixin {
@@ -51,10 +51,11 @@ public class ProjectileMixin {
             return original.call(vec3, d, e, f);
         }
 
-        ArrayList<Float> unitVelocity = InsaneBehaviors.nextEvenlyDistributedPoint(3);
+        ArrayList<Float> unitList = InsaneBehaviors.nextEvenlyDistributedPoint(3);
+        Vec3 unitVelocity = new Vec3(unitList.get(0), unitList.get(2), unitList.get(1));
         Vec3 velocity = switch (JoaCarpetSettings.insaneBehaviors) {
             // net.minecraft.world.entity.projectile.Projectile.shoot, Line 2
-            case "sensible" -> mapUnitVelocityToVec3(
+            case "sensible" -> mapUnitVelocityToTriangularDistribution(
                     unitVelocity,
                     1,
                     0.0, 0.0172275 * (double)divergence,
@@ -62,7 +63,7 @@ public class ProjectileMixin {
                     0.0, 0.0172275 * (double)divergence
             );
             // net.minecraft.world.entity.projectile.Projectile.shoot pre-1.19
-            case "extreme" -> mapUnitVelocityToVec3(
+            case "extreme" -> mapUnitVelocityToTriangularDistribution(
                     unitVelocity,
                     8,
                     0.0, (double)0.0075F * (double)divergence,
